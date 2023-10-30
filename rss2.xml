@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>xwblog</title>
+    <link>https://2796189414.github.io/xwblog.github.io/</link>
+    
+    <atom:link href="https://2796189414.github.io/xwblog.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>选择有时候比努力更重要</description>
+    <pubDate>Mon, 30 Oct 2023 07:52:58 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://2796189414.github.io/xwblog.github.io/2023/10/28/hello-world/</link>
+      <guid>https://2796189414.github.io/xwblog.github.io/2023/10/28/hello-world/</guid>
+      <pubDate>Sat, 28 Oct 2023 15:12:27 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;自我介绍&quot;&gt;&lt;a href=&quot;#自我介绍&quot; class=&quot;headerlink&quot; title=&quot;自我介绍&quot;&gt;&lt;/a&gt;自我介绍&lt;/h1&gt;&lt;p&gt;大家好，我叫 &lt;strong&gt;xiaowu&lt;/strong&gt;，来自美丽的&lt;em&gt;地球&lt;/em&gt;，今年&lt;strong&gt;20&lt;/</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>大家好，我叫 <strong>xiaowu</strong>，来自美丽的<em>地球</em>，今年<strong>20</strong>岁  </p><h4 id="学习搭建自己的blog👇"><a href="#学习搭建自己的blog👇" class="headerlink" title="学习搭建自己的blog👇"></a>学习搭建自己的blog👇</h4><h1 id="六千字的"><a href="#六千字的" class="headerlink" title="六千字的"></a><a href="https://www.yuque.com/qq2796189414/wcxyrt/sowgy92vnghgixpn?singleDoc#">六千字的<img src="/xwblog.github.io/hello-world/09F0DAC9.png" alt="img"></a></h1>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://2796189414.github.io/xwblog.github.io/2023/10/28/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>
