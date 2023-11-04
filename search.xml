@@ -736,6 +736,14 @@
 <li>事务在项目的开发中十分重要，涉及到数据的一致性和完整性问题，不容马虎！</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>java后端</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring框架</tag>
+        <tag>后端</tag>
+      </tags>
   </entry>
   <entry>
     <title>mybatis</title>
@@ -805,5 +813,13 @@
 <p><strong>最重要的一点：使用的人多！</strong></p>
 <p>Spring SpringMVC SpringBoot</p>
 ]]></content>
+      <categories>
+        <category>mybatis</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+        <tag>持久化</tag>
+        <tag>mysql</tag>
+      </tags>
   </entry>
 </search>
