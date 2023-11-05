@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/xwblog.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xwblog.github.io/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xwblog.github.io/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/xwblog.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/xwblog.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/xwblog.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/xwblog.github.io/lib/pace/pace-theme-minimal.min.css">
+  <script src="/xwblog.github.io/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"2796189414.github.io","root":"/xwblog.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/index.html">
+<meta property="og:site_name" content="xwblog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/log.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613302156-5c8a2f25-202a-42f7-acf6-7afd9ecdfeec.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613030787-90e3599d-e844-4337-990d-79f81276d3a0.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613315666-96c8465e-6866-4873-935e-de14585141e2.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613856961-49289c72-5658-49cb-9877-b928cd8b2de9.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613890588-814ca224-de5e-40b3-8a25-d201b2e32f8a.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613902229-85412f16-b5f7-49a6-897f-b62205771e81.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613915881-4483b517-46b9-40d3-9a20-6d90f39ee8aa.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613945361-3594b1ba-85d7-4adc-94af-bf9a5245c22d.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613960825-ee7cd99a-adfb-4bbb-9b70-649b86f4ce38.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646613968163-c3feda3d-3d59-436e-86d5-257c4533230c.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614626549-228bce41-a230-4de3-8d66-c69851580822.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614695639-82d69349-2510-4c2b-abc7-056c43cdf98d.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614705664-1af84336-a16c-4d9b-be01-fcb00ddcd3cd.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614767628-3da2416b-aee2-496e-a377-a604afcb18e2.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614806032-02144204-b756-4ae2-996a-ce19b0198dc2.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614866729-13cbd773-be55-462f-bbde-754cf93770bc.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614886515-a0d9b27b-d794-4afd-ba50-5a7715893c74.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614896847-544ebd26-1b47-418b-8c61-b1ce03a9677b.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614929860-83626158-4e9b-489b-9e00-2f1d31b48138.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646614980297-d95f183d-46af-42ca-a2ea-f318d44be4db.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615063763-402c95db-3b77-40fa-a28b-1d5858d536f3.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615204392-1166934c-ba98-4674-afd7-2996231e26a3.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615211159-4c2d1e9a-e943-4896-a10c-065dc1224464.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615229343-938d3b41-4d45-495c-9f0b-c625414054d4.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615236629-dd7049af-311f-478d-a171-566f160f767b.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615259060-f9490429-d0a2-44be-9471-9a3ff0122cb2.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615278188-340a4170-01e8-4c8a-ba93-2fe95ce77951.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615301842-ef9b09ee-c034-43e1-be39-11690a8727ad.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615309721-9532eacd-6e8e-4a92-84df-983096854dda.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615316796-024659f0-f654-4ce0-8a4d-065b85fcf28c.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615322901-d5390c5c-dc15-4a17-aeeb-d6bfae4c7850.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615336696-5fb8ec93-c741-44dd-8542-46af74103160.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615344438-02425201-1159-4283-bb69-d84ad6a5db5a.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615405670-618a4ad9-003e-41f5-a618-4ddd152ec022.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615411750-fc028f5c-94ff-421d-923f-2ef5b73940ec.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615548107-827a6ab4-a9cf-442e-9ba8-8c5c41e282a1.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615560443-5584da48-ef81-43af-80e2-14ce51a2bc4d.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615580947-2e0b8def-006c-4935-bd89-78577134d3aa.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615593375-29e7259c-feba-47d8-b591-10535dffa157.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615610722-82b12bac-fb59-4ef1-a81a-6cf161624cc5.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615639346-220c8adf-2417-4313-a6dd-365aa95ac9c8.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615654200-89e09a98-d1b3-4582-a2ab-3e4cf799d817.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615665367-63c6d439-7b69-4c08-9ff5-b0cfe485309e.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615672826-b45d9e0f-9e6b-4c81-9b15-6915f9ecc1f6.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615690040-43bf07e4-9ce3-41f2-b94d-44f9387106e2.png">
+<meta property="og:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/1646615700003-538f6b46-6c35-4937-bbef-7a16bd343f7a.png">
+<meta property="article:published_time" content="2023-11-05T11:49:48.000Z">
+<meta property="article:modified_time" content="2023-11-05T11:54:26.414Z">
+<meta property="article:author" content="xiaowu">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/log.png">
+
+<link rel="canonical" href="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mysql | xwblog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/xwblog.github.io/rss2.xml" title="xwblog" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+     <a target="_blank" rel="noopener" href="https://github.com/2796189414" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/xwblog.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xwblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/xwblog.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/xwblog.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/xwblog.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/xwblog.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/xwblog.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/xwblog.github.io/resources/" rel="section"><i class="fa fa-download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/xwblog.github.io/images/avatar.png">
+      <meta itemprop="name" content="xiaowu">
+      <meta itemprop="description" content="选择有时候比努力更重要">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xwblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql
+        </h1>
+
+        <div class="post-meta">
+        
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-05 19:49:48 / 修改时间：19:54:26" itemprop="dateCreated datePublished" datetime="2023-11-05T19:49:48+08:00">2023-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xwblog.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img src="/xwblog.github.io/2023/11/05/mysql/log.png" class title="MySQL">
+
+<span id="more"></span>
+
+<h3 id="1-操作文件夹（库）"><a href="#1-操作文件夹（库）" class="headerlink" title="1.操作文件夹（库）"></a>1.操作文件夹（库）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">切换文件夹：use db1;</span><br><span class="line"></span><br><span class="line">查看当前所在的文件夹：<span class="keyword">select</span> database();</span><br></pre></td></tr></table></figure>
+
+<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database db1 charset utf8;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> database db1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span>  database;</span><br></pre></td></tr></table></figure>
+
+<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> database db1 charset gbk;</span><br></pre></td></tr></table></figure>
+
+<h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> database db1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-操作文件（表）"><a href="#2-操作文件（表）" class="headerlink" title="2.操作文件（表）"></a>2.操作文件（表）</h3><h4 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1(id <span class="type">int</span> ,name <span class="type">char</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="查-1"><a href="#查-1" class="headerlink" title="查"></a>查</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> t1;<span class="operator">/</span><span class="operator">/</span>查看一个表的详细信息</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> tables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">desc</span> t1;<span class="operator">/</span><span class="operator">/</span>查看表结构</span><br></pre></td></tr></table></figure>
+
+<h4 id="改-1"><a href="#改-1" class="headerlink" title="改"></a>改</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">修改字段</span><br><span class="line"></span><br><span class="line">  <span class="keyword">alter</span> <span class="keyword">table</span> t1 modify name <span class="type">char</span>(<span class="number">6</span>)    <span class="operator">/</span><span class="operator">/</span>修改字段数据类型</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">alter</span> <span class="keyword">table</span> t1 change name NAME <span class="type">char</span>(<span class="number">7</span>);<span class="operator">/</span><span class="operator">/</span>修改字段名</span><br><span class="line"> </span><br><span class="line">修改表名</span><br><span class="line"></span><br><span class="line">  <span class="keyword">alter</span> <span class="keyword">table</span> t1 rename T1;  <span class="operator">/</span><span class="operator">/</span>修改表名</span><br><span class="line">  </span><br><span class="line">增添字段</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">alter</span>  <span class="keyword">table</span> t1 addd age  <span class="type">int</span>,<span class="keyword">add</span> sex <span class="type">char</span>(<span class="number">1</span>);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">add</span> age <span class="type">int</span><span class="operator">*</span><span class="keyword">first</span><span class="operator">*</span>; <span class="operator">/</span><span class="operator">/</span>添加到那个位置</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">add</span> age <span class="type">int</span> after name; <span class="operator">/</span><span class="operator">/</span>新字段添加到那个字段后</span><br><span class="line">   </span><br><span class="line"> 删除字段</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">drop</span> name;</span><br><span class="line">   </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<h4 id="删-1"><a href="#删-1" class="headerlink" title="删"></a>删</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> t1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-操作文件内容（记录）"><a href="#3-操作文件内容（记录）" class="headerlink" title="3.操作文件内容（记录）"></a>3.操作文件内容（记录）</h3><h4 id="增-2"><a href="#增-2" class="headerlink" title="增"></a>增</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">指定字段、不指定字段插入单条、多条数据</span><br><span class="line"></span><br><span class="line">	<span class="keyword">insert</span> <span class="keyword">into</span> t1(id,name) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;egon1&#x27;</span>),(<span class="number">2</span>,<span class="string">&#x27;egon2&#x27;</span>),(<span class="number">3</span>,<span class="string">&#x27;egon3&#x27;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">insert</span> <span class="keyword">into</span> t1 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;egon1&#x27;</span>),(<span class="number">2</span>,<span class="string">&#x27;egon2&#x27;</span>),(<span class="number">3</span>,<span class="string">&#x27;egon3&#x27;</span>);</span><br><span class="line"></span><br><span class="line">插入查询的结果</span><br><span class="line"></span><br><span class="line">	<span class="keyword">insert</span> <span class="keyword">into</span> 表名（字段<span class="number">1</span>，字段<span class="number">2.</span>..字段n） <span class="keyword">select</span> (字段<span class="number">1</span>，字段<span class="number">2.</span>..字段n) <span class="keyword">from</span>  表<span class="number">2</span> <span class="keyword">where</span>  ...;</span><br><span class="line"></span><br><span class="line">复制表</span><br><span class="line"></span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> t1 <span class="keyword">select</span> host,<span class="keyword">user</span> <span class="keyword">from</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>将查出的表数据和表结构给新建的表格</span><br><span class="line"></span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> t2 <span class="keyword">select</span> host,<span class="keyword">user</span> <span class="keyword">from</span> mysql.user <span class="keyword">where</span> <span class="number">1</span><span class="operator">&gt;</span><span class="number">5</span>;  <span class="operator">/</span><span class="operator">/</span> 将查出的表的结构给新的表格</span><br><span class="line"></span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> t3 <span class="keyword">like</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>将表的结构给新的表格  （我未实现）</span><br></pre></td></tr></table></figure>
+
+<h4 id="查-2"><a href="#查-2" class="headerlink" title="查"></a>查</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">单表查询语法</span><br><span class="line"></span><br><span class="line">	<span class="keyword">select</span>  （<span class="keyword">distinct</span>）字段<span class="number">1</span>，字段<span class="number">2</span>，字段<span class="number">3</span> <span class="keyword">from</span> 库.表  <span class="keyword">where</span> 条件 <span class="keyword">group</span> <span class="keyword">by</span> 分组条件 <span class="keyword">having</span> 过滤 <span class="keyword">order</span> <span class="keyword">by</span> 排序字段 limit n；</span><br><span class="line"></span><br><span class="line">	<span class="keyword">select</span> id,name <span class="keyword">from</span> db1.t1;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> db1.t1;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">distinct</span>  去除查询结果的重复，如查询员工的部门字段，可能一个部门重复显示，用<span class="keyword">distinct</span>，让其单一显示。</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613302156-5c8a2f25-202a-42f7-acf6-7afd9ecdfeec.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613030787-90e3599d-e844-4337-990d-79f81276d3a0.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613315666-96c8465e-6866-4873-935e-de14585141e2.png" class title="img">
+
+<h4 id="改-2"><a href="#改-2" class="headerlink" title="改"></a>改</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> db1.t1 <span class="keyword">set</span> name<span class="operator">=</span><span class="string">&#x27;sb&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">update</span> db1.t1 <span class="keyword">set</span> name<span class="operator">=</span><span class="string">&#x27;bing&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="删-2"><a href="#删-2" class="headerlink" title="删"></a>删</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t1; <span class="operator">/</span><span class="operator">/</span>删除数据，但是自增长的字段不会恢复到初值，一般与<span class="keyword">where</span>连用</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">delete</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">truncate</span> t1;<span class="operator">/</span><span class="operator">/</span>把文件所有数据清空</span><br><span class="line">什么是存储引擎？</span><br><span class="line"></span><br><span class="line"><span class="operator">*</span><span class="operator">-</span><span class="operator">&gt;</span>存储引擎就是表的类型<span class="operator">*</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、存储引擎、数据类型"><a href="#4、存储引擎、数据类型" class="headerlink" title="4、存储引擎、数据类型"></a>4、存储引擎、数据类型</h3><h4 id="查看MySQL支持的存储引擎"><a href="#查看MySQL支持的存储引擎" class="headerlink" title="查看MySQL支持的存储引擎"></a>查看MySQL支持的存储引擎</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> engines;  <span class="operator">/</span><span class="operator">/</span>查看MySQL支持的存储引擎</span><br></pre></td></tr></table></figure>
+
+<h4 id="指定表类型-存储引擎"><a href="#指定表类型-存储引擎" class="headerlink" title="指定表类型&#x2F;存储引擎"></a>指定表类型&#x2F;存储引擎</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1(id <span class="type">int</span>)engine<span class="operator">=</span>innodb; <span class="operator">/</span><span class="operator">/</span>我们经常用的</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t2(id <span class="type">int</span>)engine<span class="operator">=</span>memory; <span class="operator">/</span><span class="operator">/</span>数据丢进去存在内存里，服务器软件关闭就清空了</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t3(id <span class="type">int</span>)engine<span class="operator">=</span>blackhole; <span class="operator">/</span><span class="operator">/</span>黑洞 数据丢进去就没有</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t4(id <span class="type">int</span>)engine<span class="operator">=</span>myisam;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t1 <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t2 <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t3 <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查询表太乱时，后面加 \G</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.user\G;</span><br></pre></td></tr></table></figure>
+
+<h4 id="int"><a href="#int" class="headerlink" title="int"></a>int</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t5(id <span class="type">int</span>(<span class="number">5</span>) unsigned zerofill); <span class="operator">/</span><span class="operator">/</span>创建一个显示宽度为<span class="number">5</span>的数据，不足五位的用<span class="number">0</span>补位</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t5(id <span class="type">int</span> unsigned); <span class="operator">/</span><span class="operator">/</span>没有指定的话，默认为<span class="number">10</span>位</span><br></pre></td></tr></table></figure>
+
+<h4 id="float"><a href="#float" class="headerlink" title="float"></a>float</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span>(M,D); M是一共的位数，D小数点占位数</span><br></pre></td></tr></table></figure>
+
+<h4 id="表（文件）相关操作"><a href="#表（文件）相关操作" class="headerlink" title="表（文件）相关操作"></a>表（文件）相关操作</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646613856961-49289c72-5658-49cb-9877-b928cd8b2de9.png" class title="img">
+
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">now() <span class="comment">-----------------------------------当前时间</span></span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613890588-814ca224-de5e-40b3-8a25-d201b2e32f8a.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613902229-85412f16-b5f7-49a6-897f-b62205771e81.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613915881-4483b517-46b9-40d3-9a20-6d90f39ee8aa.png" class title="img">
+
+<p>虽然char 在存 和 取的时候长度（数值）可以变，但是我们可以让他现出原形。<br>设置：SET sqlmode &#x3D; ‘PADCHARTOFULL_LENGTH’;</p>
+<img src="/xwblog.github.io/2023/11/05/mysql/1646613945361-3594b1ba-85d7-4adc-94af-bf9a5245c22d.png" class title="img">
+
+<h4 id="枚举和集合类型"><a href="#枚举和集合类型" class="headerlink" title="枚举和集合类型"></a>枚举和集合类型</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646613960825-ee7cd99a-adfb-4bbb-9b70-649b86f4ce38.png" class title="img"><img src="/xwblog.github.io/2023/11/05/mysql/1646613968163-c3feda3d-3d59-436e-86d5-257c4533230c.png" class title="img">
+
+
+
+<h3 id="5、约束条件"><a href="#5、约束条件" class="headerlink" title="5、约束条件"></a>5、约束条件</h3><h4 id="约束条件not-null-和-default"><a href="#约束条件not-null-和-default" class="headerlink" title="约束条件not null 和 default"></a>约束条件not null 和 default</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t4(id <span class="type">int</span> unsigned zerofill);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t5(id <span class="type">int</span>,name <span class="type">char</span>(<span class="number">6</span>),sex enum(<span class="string">&#x27;male&#x27;</span>,<span class="string">&#x27;female&#x27;</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;male&#x27;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t5( id,name) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;bing&#x27;</span>);</span><br><span class="line"></span><br><span class="line">以下这个错误可能是某个字段有空格：ERROR <span class="number">1054</span> (<span class="number">42</span>S22): <span class="literal">Unknown</span> <span class="keyword">column</span> <span class="string">&#x27;male&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;field list&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="约束条件-unique-key"><a href="#约束条件-unique-key" class="headerlink" title="约束条件 unique key"></a>约束条件 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=unique&spm=1001.2101.3001.7020">unique</a> key</h4><h5 id="单列唯一"><a href="#单列唯一" class="headerlink" title="单列唯一"></a>单列唯一</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">方式<span class="number">1</span></span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> department(id <span class="type">int</span>,name <span class="type">char</span>(<span class="number">10</span>) <span class="keyword">unique</span>);</span><br><span class="line">	</span><br><span class="line">方式<span class="number">2</span></span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> department(id <span class="type">int</span>,name <span class="type">char</span>(<span class="number">10</span>) ,<span class="keyword">unique</span>(name));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">insert</span> <span class="keyword">into</span> department <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;IT&#x27;</span>),(<span class="number">2</span>,<span class="string">&#x27;OP&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="联合唯一"><a href="#联合唯一" class="headerlink" title="联合唯一"></a>联合唯一</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> services(id <span class="type">int</span> <span class="keyword">unique</span>,ip <span class="type">char</span>(<span class="number">15</span>),port <span class="type">int</span>,<span class="keyword">unique</span>(ip,port) );</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> services <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;192.168.11.10&#x27;</span>,<span class="number">80</span>),(<span class="number">2</span>,<span class="string">&#x27;192.168.11.10&#x27;</span>,<span class="number">81</span>),(<span class="number">3</span>,<span class="string">&#x27;192.168.11.13&#x27;</span>,<span class="number">80</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="约束条件primary-key-：（not-null-、unique）-不能为空且唯一"><a href="#约束条件primary-key-：（not-null-、unique）-不能为空且唯一" class="headerlink" title="约束条件primary key ：（not null 、unique） 不能为空且唯一"></a>约束条件primary key ：（not null 、unique） 不能为空且唯一</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">存储引擎（innodb）:对于innodb存储引擎来说，一张表内必须要有一个主键</span><br></pre></td></tr></table></figure>
+
+<h5 id="单列主键"><a href="#单列主键" class="headerlink" title="单列主键"></a>单列主键</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t6(id <span class="type">int</span> <span class="keyword">primary</span> key,name <span class="type">char</span>(<span class="number">16</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t6 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;bing&#x27;</span>),(<span class="number">2</span>,<span class="string">&#x27;chuan&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t6(name) <span class="keyword">values</span>(<span class="string">&#x27;xiu&#x27;</span>);<span class="operator">/</span><span class="operator">/</span>老师讲为第一次默认为<span class="number">0</span>，其他不能再插入。</span><br><span class="line">#ERROR <span class="number">1364</span> (HY000): Field <span class="string">&#x27;id&#x27;</span> doesn<span class="string">&#x27;t have a default value</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="复合主键"><a href="#复合主键" class="headerlink" title="复合主键"></a>复合主键</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t7(ip <span class="type">char</span>(<span class="number">15</span>),port <span class="type">int</span>,<span class="keyword">primary</span> key(ip,port));</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t7 <span class="keyword">values</span>(<span class="string">&#x27;1.1.1.1&#x27;</span>,<span class="number">80</span>),(<span class="string">&#x27;1.1.1.1&#x27;</span>,<span class="number">81</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="约束条件-auto-increment"><a href="#约束条件-auto-increment" class="headerlink" title="约束条件 auto_increment"></a>约束条件 auto_increment</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t8(id <span class="type">int</span> <span class="keyword">primary</span> key auto_increment,name <span class="type">char</span>(<span class="number">15</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t8(name) <span class="keyword">values</span>(<span class="string">&#x27;nihao&#x27;</span>),(<span class="string">&#x27;buha&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="约束条件-foreign-key-建立表之间的关系"><a href="#约束条件-foreign-key-建立表之间的关系" class="headerlink" title="约束条件 foreign key:建立表之间的关系"></a>约束条件 foreign key:建立表之间的关系</h4><h5 id="1-建立表关系"><a href="#1-建立表关系" class="headerlink" title="1.建立表关系"></a>1.建立表关系</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#先建被关联的表，并且保证被关联的字段唯一</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dep(id <span class="type">int</span> <span class="keyword">primary</span> key,name <span class="type">char</span>(<span class="number">10</span>),comment <span class="type">char</span>(<span class="number">20</span>));</span><br><span class="line"></span><br><span class="line">#创建要关联的表</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(id <span class="type">int</span> <span class="keyword">primary</span> key,name <span class="type">char</span>(<span class="number">15</span>),sex enum(<span class="string">&#x27;male&#x27;</span>,<span class="string">&#x27;female&#x27;</span>),depid <span class="type">int</span>,<span class="keyword">foreign</span> key(depid) <span class="keyword">references</span> dep(id) <span class="keyword">on</span> <span class="keyword">delete</span> cascade <span class="keyword">on</span> <span class="keyword">update</span> cascade);<span class="operator">/</span><span class="operator">/</span><span class="keyword">on</span> <span class="keyword">delete</span> cascade 删除同步<span class="comment">---》删除被关联的表中相关数据，关联的表相应数据也会同步删除 on update cascade 更新同步---》更新被关联的表中相关数据，关联的表相应数据也会同步更新</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-插入数据"><a href="#2-插入数据" class="headerlink" title="2.插入数据"></a>2.插入数据</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#先往被关联表插入数据</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dep <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;IT&#x27;</span>,<span class="string">&#x27;技术部门&#x27;</span>),(<span class="number">2</span>,<span class="string">&#x27;销售&#x27;</span>,<span class="string">&#x27;销售部门&#x27;</span>);</span><br><span class="line"></span><br><span class="line">#再往关联的表中插入数据</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;bing&#x27;</span>,<span class="string">&#x27;male&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">#操作被关联的表 同步更新 同步删除</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> dep <span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">update</span> dep <span class="keyword">set</span> id<span class="operator">=</span><span class="number">202</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、表之间的三种关系：多对多、多对一、一对一"><a href="#6、表之间的三种关系：多对多、多对一、一对一" class="headerlink" title="6、表之间的三种关系：多对多、多对一、一对一"></a>6、表之间的三种关系：多对多、多对一、一对一</h3><h4 id="多对一"><a href="#多对一" class="headerlink" title="多对一"></a>多对一</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="operator">*</span><span class="operator">*</span>出版社 书（pressid <span class="type">int</span>,<span class="keyword">foreign</span> key(pressid) reference press(id)）;<span class="operator">*</span><span class="operator">*</span><span class="operator">!</span>[在这里插入图片描述](https:<span class="operator">/</span><span class="operator">/</span>img<span class="operator">-</span>blog.csdnimg.cn<span class="operator">/</span><span class="number">20200811100644175.</span>png?x<span class="operator">-</span>oss<span class="operator">-</span>process<span class="operator">=</span>image<span class="operator">/</span>watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMzAxNDI4,size_16,color_FFFFFF,t_70)</span><br></pre></td></tr></table></figure>
+
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="operator">*</span><span class="operator">*</span>作者 书<span class="operator">*</span><span class="operator">*</span>	<span class="operator">!</span>[在这里插入图片描述](https:<span class="operator">/</span><span class="operator">/</span>img<span class="operator">-</span>blog.csdnimg.cn<span class="operator">/</span><span class="number">20200811101017578.</span>png?x<span class="operator">-</span>oss<span class="operator">-</span>process<span class="operator">=</span>image<span class="operator">/</span>watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMzAxNDI4,size_16,color_FFFFFF,t_70)</span><br><span class="line"><span class="operator">!</span>[在这里插入图片描述](https:<span class="operator">/</span><span class="operator">/</span>img<span class="operator">-</span>blog.csdnimg.cn<span class="operator">/</span><span class="number">20200811101117188.</span>png?x<span class="operator">-</span>oss<span class="operator">-</span>process<span class="operator">=</span>image<span class="operator">/</span>watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMzAxNDI4,size_16,color_FFFFFF,t_70)</span><br></pre></td></tr></table></figure>
+
+<h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646614626549-228bce41-a230-4de3-8d66-c69851580822.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646614695639-82d69349-2510-4c2b-abc7-056c43cdf98d.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646614705664-1af84336-a16c-4d9b-be01-fcb00ddcd3cd.png" class title="img">
+
+<h3 id="7、数据（记录）相关操作"><a href="#7、数据（记录）相关操作" class="headerlink" title="7、数据（记录）相关操作"></a>7、数据（记录）相关操作</h3><h4 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h4><h5 id="where-约束条件"><a href="#where-约束条件" class="headerlink" title="where 约束条件"></a>where 约束条件</h5><img src="/xwblog.github.io/2023/11/05/mysql/1646614767628-3da2416b-aee2-496e-a377-a604afcb18e2.png" class title="img">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>  <span class="keyword">from</span> employ <span class="keyword">where</span> id <span class="operator">&gt;</span> <span class="number">7</span>;</span><br><span class="line"><span class="keyword">select</span> name,salary <span class="keyword">from</span> employee <span class="keyword">where</span> post <span class="operator">=</span> &quot;teacher&quot; <span class="keyword">and</span> salary <span class="operator">&gt;</span> <span class="number">8000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name,salary <span class="keyword">from</span> employee <span class="keyword">where</span> salary <span class="keyword">between</span> <span class="number">20000</span> <span class="keyword">and</span> <span class="number">30000</span>;</span><br><span class="line"><span class="keyword">select</span> name,salary <span class="keyword">from</span> employee <span class="keyword">where</span> salary <span class="keyword">not</span> <span class="keyword">between</span> <span class="number">20000</span> <span class="keyword">and</span> <span class="number">30000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employ <span class="keyword">where</span> age <span class="operator">=</span> <span class="number">73</span> <span class="keyword">or</span> age <span class="operator">=</span> <span class="number">80</span> <span class="keyword">or</span> age <span class="operator">=</span> <span class="number">66</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employ <span class="keyword">where</span> age <span class="keyword">in</span>(<span class="number">73</span>,<span class="number">80</span>,<span class="number">66</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">where</span> name <span class="keyword">like</span> &quot;jin%&quot;; <span class="operator">%</span>代表后面任意字符</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">where</span> name <span class="keyword">like</span> &quot;jin__&quot;; _代表任意一个字符</span><br></pre></td></tr></table></figure>
+
+<h5 id="group-by-分组"><a href="#group-by-分组" class="headerlink" title="group by 分组"></a>group by 分组</h5><img src="/xwblog.github.io/2023/11/05/mysql/1646614806032-02144204-b756-4ae2-996a-ce19b0198dc2.png" class title="img">
+
+<p>mysql&gt; set global sqlmode &#x3D; “ONLYFULLGROUPBY”;#设置过后，只能取分组的字段<br>分组过后，只能取分组的字段，以及每个组聚合的结果 select post from employee group by post;</p>
+<p>没有group by则默认整体算作一组 select max(salary) from employee;</p>
+<p>聚合函数：max、min、avg、sum、count</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#每个职位有多少个员工</span><br><span class="line"><span class="keyword">select</span> post ,<span class="built_in">count</span>(id) <span class="keyword">as</span> emp_count <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br><span class="line"><span class="keyword">select</span> post ,<span class="built_in">max</span>(salary) <span class="keyword">as</span> emp_count <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br><span class="line"><span class="keyword">select</span> post ,<span class="built_in">min</span>(salary) <span class="keyword">as</span> emp_count <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br><span class="line"><span class="keyword">select</span> post ,ave(salary) <span class="keyword">as</span> emp_count <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br><span class="line"><span class="keyword">select</span> post ,<span class="built_in">sum</span>(age) <span class="keyword">as</span> emp_count <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br><span class="line"> </span><br><span class="line">#group_concat</span><br><span class="line"><span class="keyword">select</span> post,group_concat(name) <span class="keyword">from</span> employee <span class="keyword">group</span> <span class="keyword">by</span> post;</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646614866729-13cbd773-be55-462f-bbde-754cf93770bc.png" class title="img">
+
+<h5 id="HAVING过滤"><a href="#HAVING过滤" class="headerlink" title="HAVING过滤"></a>HAVING过滤</h5><img src="/xwblog.github.io/2023/11/05/mysql/1646614886515-a0d9b27b-d794-4afd-ba50-5a7715893c74.png" class title="img"><img src="/xwblog.github.io/2023/11/05/mysql/1646614896847-544ebd26-1b47-418b-8c61-b1ce03a9677b.png" class title="img">
+
+<h5 id="order-by排序"><a href="#order-by排序" class="headerlink" title="order by排序"></a>order by排序</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>;#升序</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span>;#降序</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>,id <span class="keyword">desc</span>;#先按照age升序排，如果age相同则按照id降序排</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646614929860-83626158-4e9b-489b-9e00-2f1d31b48138.png" class title="img">
+
+<h5 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee limit <span class="number">3</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span> limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646614980297-d95f183d-46af-42ca-a2ea-f318d44be4db.png" class title="img">
+
+<p>0,5;从初始位置取5条</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">*</span>语法顺序<span class="operator">*</span> </span><br><span class="line"><span class="keyword">select</span> （<span class="keyword">distinct</span>）字段<span class="number">1</span>，字段<span class="number">2</span>，字段<span class="number">3</span> <span class="keyword">from</span> 库.表 <span class="keyword">where</span> 条件 <span class="keyword">group</span> <span class="keyword">by</span> 分组条件 <span class="keyword">having</span> 过滤 <span class="keyword">order</span> <span class="keyword">by</span> 排序字段 limit n；</span><br><span class="line">		</span><br><span class="line"><span class="operator">*</span>执行顺序<span class="operator">*</span>  </span><br><span class="line"><span class="keyword">from</span>表<span class="number">1</span>、表<span class="number">2</span><span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">on</span>关系<span class="operator">-</span><span class="operator">&gt;</span>（左右内）<span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">where</span><span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">group</span> <span class="keyword">by</span><span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">having</span><span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">select</span><span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">distinct</span><span class="operator">-</span><span class="operator">&gt;</span>字段<span class="operator">-</span><span class="operator">&gt;</span><span class="keyword">order</span> <span class="keyword">by</span><span class="operator">-</span><span class="operator">&gt;</span>limit</span><br></pre></td></tr></table></figure>
+
+<h5 id="like"><a href="#like" class="headerlink" title="like"></a>like</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">where</span> name <span class="keyword">like</span> &quot;jin%&quot;;</span><br><span class="line">#正则表达式</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">where</span> name regexp &quot;^jin&quot; ;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">where</span> name regexp &quot;^jin.*(g|n)$&quot; ;#jin开头g、n结尾</span><br></pre></td></tr></table></figure>
+
+<h4 id="多表数据查询"><a href="#多表数据查询" class="headerlink" title="多表数据查询"></a>多表数据查询</h4><p>where连表 不建议用。有三种正规的连表方式</p>
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615063763-402c95db-3b77-40fa-a28b-1d5858d536f3.png" class title="img">
+
+<h4 id="三种连表方式：内连接、左连接、右连接、全外连接"><a href="#三种连表方式：内连接、左连接、右连接、全外连接" class="headerlink" title="三种连表方式：内连接、左连接、右连接、全外连接"></a>三种连表方式：内连接、左连接、右连接、全外连接</h4><h5 id="内连接：只取两张表的公共部分"><a href="#内连接：只取两张表的公共部分" class="headerlink" title="内连接：只取两张表的公共部分"></a>内连接：只取两张表的公共部分</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 表<span class="number">1.</span>字段 <span class="operator">=</span> 表<span class="number">2.</span>字段</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">inner</span> <span class="keyword">join</span> department <span class="keyword">on</span> employee .dep_id <span class="operator">=</span> department .id;</span><br></pre></td></tr></table></figure>
+
+<h5 id="左连接：在内连接的基础上保留左表"><a href="#左连接：在内连接的基础上保留左表" class="headerlink" title="左连接：在内连接的基础上保留左表"></a>左连接：在内连接的基础上保留左表</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 表<span class="number">1.</span>字段 <span class="operator">=</span> 表<span class="number">2.</span>字段</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">left</span> <span class="keyword">join</span> department <span class="keyword">on</span> employee .dep_id <span class="operator">=</span> department .id;</span><br></pre></td></tr></table></figure>
+
+<h5 id="右连接：在内连接的基础上保留右表"><a href="#右连接：在内连接的基础上保留右表" class="headerlink" title="右连接：在内连接的基础上保留右表"></a>右连接：在内连接的基础上保留右表</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 表<span class="number">1.</span>字段 <span class="operator">=</span> 表<span class="number">2.</span>字段</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">right</span> <span class="keyword">join</span> department <span class="keyword">on</span> employee .dep_id <span class="operator">=</span> department .id;</span><br></pre></td></tr></table></figure>
+
+<h5 id="全外连接：在内连接的基础上保留左右两表没有对应关系的记录"><a href="#全外连接：在内连接的基础上保留左右两表没有对应关系的记录" class="headerlink" title="全外连接：在内连接的基础上保留左右两表没有对应关系的记录"></a>全外连接：在内连接的基础上保留左右两表没有对应关系的记录</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">表<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 表<span class="number">1.</span>字段 <span class="operator">=</span> 表<span class="number">2.</span>字段 <span class="keyword">union</span> 表<span class="number">1</span> <span class="keyword">right</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 表<span class="number">1.</span>字段 <span class="operator">=</span> 表<span class="number">2.</span>字段<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">left</span> <span class="keyword">join</span> department <span class="keyword">on</span> employee .dep_id <span class="operator">=</span> department .id</span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employee <span class="keyword">right</span> <span class="keyword">join</span> department <span class="keyword">on</span> employee .dep_id <span class="operator">=</span> department .id；</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615204392-1166934c-ba98-4674-afd7-2996231e26a3.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615211159-4c2d1e9a-e943-4896-a10c-065dc1224464.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615229343-938d3b41-4d45-495c-9f0b-c625414054d4.png" class title="img">
+
+
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615236629-dd7049af-311f-478d-a171-566f160f767b.png" class title="img">
+
+
+
+<h3 id="8、select完整语法"><a href="#8、select完整语法" class="headerlink" title="8、select完整语法"></a>8、select完整语法</h3><img src="/xwblog.github.io/2023/11/05/mysql/1646615259060-f9490429-d0a2-44be-9471-9a3ff0122cb2.png" class title="img">
+
+<h3 id="9、select执行顺序"><a href="#9、select执行顺序" class="headerlink" title="9、select执行顺序"></a>9、select执行顺序</h3><img src="/xwblog.github.io/2023/11/05/mysql/1646615278188-340a4170-01e8-4c8a-ba93-2fe95ce77951.png" class title="img">
+
+<h3 id="10、子查询"><a href="#10、子查询" class="headerlink" title="10、子查询"></a>10、子查询</h3><img src="/xwblog.github.io/2023/11/05/mysql/1646615301842-ef9b09ee-c034-43e1-be39-11690a8727ad.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615309721-9532eacd-6e8e-4a92-84df-983096854dda.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615316796-024659f0-f654-4ce0-8a4d-065b85fcf28c.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615322901-d5390c5c-dc15-4a17-aeeb-d6bfae4c7850.png" class title="img">
+
+<p>where exists();是否存在 true false</p>
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615336696-5fb8ec93-c741-44dd-8542-46af74103160.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615344438-02425201-1159-4283-bb69-d84ad6a5db5a.png" class title="img">
+
+<h3 id="11、权限管理"><a href="#11、权限管理" class="headerlink" title="11、权限管理"></a>11、权限管理</h3><h4 id="1-创建账号"><a href="#1-创建账号" class="headerlink" title="1.创建账号"></a>1.创建账号</h4><h5 id="本地帐号"><a href="#本地帐号" class="headerlink" title="本地帐号"></a>本地帐号</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123&#x27;</span>;# mysql <span class="operator">-</span>uegon1 <span class="operator">-</span>p123</span><br></pre></td></tr></table></figure>
+
+<h5 id="远程账号"><a href="#远程账号" class="headerlink" title="远程账号"></a>远程账号</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;egon2&#x27;</span>@<span class="string">&#x27;192.168.31.10&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123&#x27;</span>;# mysql <span class="operator">-</span>uegon2 <span class="operator">-</span>p123 <span class="operator">-</span>h 服务端ip</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;egon3&#x27;</span>@<span class="string">&#x27;192.168.31.%&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123&#x27;</span>;# mysql <span class="operator">-</span>uegon2 <span class="operator">-</span>p123 <span class="operator">-</span>h 服务端ip</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;egon4&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123&#x27;</span>;# mysql <span class="operator">-</span>uegon2 <span class="operator">-</span>p123 <span class="operator">-</span>h 服务端ip</span><br></pre></td></tr></table></figure>
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615405670-618a4ad9-003e-41f5-a618-4ddd152ec022.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615411750-fc028f5c-94ff-421d-923f-2ef5b73940ec.png" class title="img">
+
+<h4 id="2-授权"><a href="#2-授权" class="headerlink" title="2.授权"></a>2.授权</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">user</span>；<span class="operator">*</span> . <span class="operator">*</span></span><br><span class="line">db;db1.<span class="operator">*</span> tables_priv</span><br><span class="line">db1.t1 columus_priv</span><br><span class="line">id,name</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看权限"><a href="#查看权限" class="headerlink" title="查看权限"></a>查看权限</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.user\G 查看用户权限</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.db\G 查看库的用户权限</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.tables_priv\G 查看表的用户权限</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.columus_priv\G 查看表字段的用户权限</span><br></pre></td></tr></table></figure>
+
+<h5 id="放权限-select-查看权限-update-更新权限"><a href="#放权限-select-查看权限-update-更新权限" class="headerlink" title="放权限 (select-&gt;查看权限 update-&gt;更新权限)"></a>放权限 (select-&gt;查看权限 update-&gt;更新权限)</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">放所有权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line">放库权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> db1.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line">放表权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> db1.t1 <span class="keyword">to</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line">放字段权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span>(id,name),<span class="keyword">update</span>(age) <span class="keyword">on</span> db1.t1 <span class="keyword">to</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">回收所有权限</span><br><span class="line"><span class="keyword">revoke</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>. <span class="operator">*</span> <span class="keyword">from</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">回收库权限</span><br><span class="line"><span class="keyword">revoke</span> <span class="keyword">select</span> <span class="keyword">on</span> db1. <span class="operator">*</span> <span class="keyword">from</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">回收表权限</span><br><span class="line"><span class="keyword">revoke</span> <span class="keyword">select</span> <span class="keyword">on</span> db1.t1 <span class="keyword">from</span> <span class="string">&#x27;egon1&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、登录功能设计"><a href="#12、登录功能设计" class="headerlink" title="12、登录功能设计"></a>12、登录功能设计</h3><h4 id="有问题的"><a href="#有问题的" class="headerlink" title="有问题的"></a>有问题的</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646615548107-827a6ab4-a9cf-442e-9ba8-8c5c41e282a1.png" class title="img">
+
+<h4 id="修正过的"><a href="#修正过的" class="headerlink" title="修正过的"></a>修正过的</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646615560443-5584da48-ef81-43af-80e2-14ce51a2bc4d.png" class title="img">
+
+
+
+
+<h4 id="增、删、改、查"><a href="#增、删、改、查" class="headerlink" title="增、删、改、查"></a>增、删、改、查</h4><img src="/xwblog.github.io/2023/11/05/mysql/1646615580947-2e0b8def-006c-4935-bd89-78577134d3aa.png" class title="img">
+
+<h3 id="13、视图（将连接-的虚拟表存储起来）"><a href="#13、视图（将连接-的虚拟表存储起来）" class="headerlink" title="13、视图（将连接 的虚拟表存储起来）"></a>13、视图（将连接 的虚拟表存储起来）</h3><img src="/xwblog.github.io/2023/11/05/mysql/1646615593375-29e7259c-feba-47d8-b591-10535dffa157.png" class title="img">
+
+<h3 id="14、存储过程"><a href="#14、存储过程" class="headerlink" title="14、存储过程"></a>14、存储过程</h3><h5 id="无参"><a href="#无参" class="headerlink" title="无参"></a>无参</h5><img src="/xwblog.github.io/2023/11/05/mysql/1646615610722-82b12bac-fb59-4ef1-a81a-6cf161624cc5.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615639346-220c8adf-2417-4313-a6dd-365aa95ac9c8.png" class title="img">
+
+<h5 id="有参"><a href="#有参" class="headerlink" title="有参"></a>有参</h5><img src="/xwblog.github.io/2023/11/05/mysql/1646615654200-89e09a98-d1b3-4582-a2ab-3e4cf799d817.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615665367-63c6d439-7b69-4c08-9ff5-b0cfe485309e.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615672826-b45d9e0f-9e6b-4c81-9b15-6915f9ecc1f6.png" class title="img">
+
+<h3 id="15、事务"><a href="#15、事务" class="headerlink" title="15、事务"></a>15、事务</h3><img src="/xwblog.github.io/2023/11/05/mysql/1646615690040-43bf07e4-9ce3-41f2-b94d-44f9387106e2.png" class title="img">
+
+<img src="/xwblog.github.io/2023/11/05/mysql/1646615700003-538f6b46-6c35-4937-bbef-7a16bd343f7a.png" class title="img">
+
+    </div>
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------文章到底啦！<i class="fa fa-columns"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div>感谢您的阅读和支持,您的支持是对我最大的帮助！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/xwblog.github.io/images/wechatpay.png" alt="xiaowu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/xwblog.github.io/images/alipay.png" alt="xiaowu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xiaowu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/" title="mysql">https://2796189414.github.io/xwblog.github.io/2023/11/05/mysql/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/xwblog.github.io/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/xwblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/xwblog.github.io/2023/11/04/spring/" rel="prev" title="spring">
+      <i class="fa fa-chevron-left"></i> spring
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/xwblog.github.io/2023/11/05/html/" rel="next" title="html">
+      html <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81OTEzNC8zNTU5Ng=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%88%E5%BA%93%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1.操作文件夹（库）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">1.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">1.2.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">1.3.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">1.4.</span> <span class="nav-text">删</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%EF%BC%88%E8%A1%A8%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2.操作文件（表）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E-1"><span class="nav-number">2.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5-1"><span class="nav-number">2.2.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9-1"><span class="nav-number">2.3.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0-1"><span class="nav-number">2.4.</span> <span class="nav-text">删</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%EF%BC%88%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3.操作文件内容（记录）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E-2"><span class="nav-number">3.1.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5-2"><span class="nav-number">3.2.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9-2"><span class="nav-number">3.3.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0-2"><span class="nav-number">3.4.</span> <span class="nav-text">删</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">4、存储引擎、数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8BMySQL%E6%94%AF%E6%8C%81%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">4.1.</span> <span class="nav-text">查看MySQL支持的存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%A1%A8%E7%B1%BB%E5%9E%8B-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">4.2.</span> <span class="nav-text">指定表类型&#x2F;存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int"><span class="nav-number">4.3.</span> <span class="nav-text">int</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#float"><span class="nav-number">4.4.</span> <span class="nav-text">float</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%EF%BC%88%E6%96%87%E4%BB%B6%EF%BC%89%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-number">4.5.</span> <span class="nav-text">表（文件）相关操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%92%8C%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.6.</span> <span class="nav-text">枚举和集合类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">5、约束条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6not-null-%E5%92%8C-default"><span class="nav-number">5.1.</span> <span class="nav-text">约束条件not null 和 default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6-unique-key"><span class="nav-number">5.2.</span> <span class="nav-text">约束条件 unique key</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%88%97%E5%94%AF%E4%B8%80"><span class="nav-number">5.2.1.</span> <span class="nav-text">单列唯一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%94%AF%E4%B8%80"><span class="nav-number">5.2.2.</span> <span class="nav-text">联合唯一</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6primary-key-%EF%BC%9A%EF%BC%88not-null-%E3%80%81unique%EF%BC%89-%E4%B8%8D%E8%83%BD%E4%B8%BA%E7%A9%BA%E4%B8%94%E5%94%AF%E4%B8%80"><span class="nav-number">5.3.</span> <span class="nav-text">约束条件primary key ：（not null 、unique） 不能为空且唯一</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%88%97%E4%B8%BB%E9%94%AE"><span class="nav-number">5.3.1.</span> <span class="nav-text">单列主键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E4%B8%BB%E9%94%AE"><span class="nav-number">5.3.2.</span> <span class="nav-text">复合主键</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6-auto-increment"><span class="nav-number">5.4.</span> <span class="nav-text">约束条件 auto_increment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6-foreign-key-%E5%BB%BA%E7%AB%8B%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">5.5.</span> <span class="nav-text">约束条件 foreign key:建立表之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%BB%BA%E7%AB%8B%E8%A1%A8%E5%85%B3%E7%B3%BB"><span class="nav-number">5.5.1.</span> <span class="nav-text">1.建立表关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">5.5.2.</span> <span class="nav-text">2.插入数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E8%A1%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%B8%89%E7%A7%8D%E5%85%B3%E7%B3%BB%EF%BC%9A%E5%A4%9A%E5%AF%B9%E5%A4%9A%E3%80%81%E5%A4%9A%E5%AF%B9%E4%B8%80%E3%80%81%E4%B8%80%E5%AF%B9%E4%B8%80"><span class="nav-number">6.</span> <span class="nav-text">6、表之间的三种关系：多对多、多对一、一对一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80"><span class="nav-number">6.1.</span> <span class="nav-text">多对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">6.2.</span> <span class="nav-text">多对多</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80"><span class="nav-number">6.3.</span> <span class="nav-text">一对一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E6%95%B0%E6%8D%AE%EF%BC%88%E8%AE%B0%E5%BD%95%EF%BC%89%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">7、数据（记录）相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.1.</span> <span class="nav-text">单表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#where-%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">7.1.1.</span> <span class="nav-text">where 约束条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#group-by-%E5%88%86%E7%BB%84"><span class="nav-number">7.1.2.</span> <span class="nav-text">group by 分组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING%E8%BF%87%E6%BB%A4"><span class="nav-number">7.1.3.</span> <span class="nav-text">HAVING过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#order-by%E6%8E%92%E5%BA%8F"><span class="nav-number">7.1.4.</span> <span class="nav-text">order by排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#limit"><span class="nav-number">7.1.5.</span> <span class="nav-text">limit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#like"><span class="nav-number">7.1.6.</span> <span class="nav-text">like</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%A1%A8%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.2.</span> <span class="nav-text">多表数据查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E8%BF%9E%E8%A1%A8%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%86%85%E8%BF%9E%E6%8E%A5%E3%80%81%E5%B7%A6%E8%BF%9E%E6%8E%A5%E3%80%81%E5%8F%B3%E8%BF%9E%E6%8E%A5%E3%80%81%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">7.3.</span> <span class="nav-text">三种连表方式：内连接、左连接、右连接、全外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5%EF%BC%9A%E5%8F%AA%E5%8F%96%E4%B8%A4%E5%BC%A0%E8%A1%A8%E7%9A%84%E5%85%AC%E5%85%B1%E9%83%A8%E5%88%86"><span class="nav-number">7.3.1.</span> <span class="nav-text">内连接：只取两张表的公共部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%A6%E8%BF%9E%E6%8E%A5%EF%BC%9A%E5%9C%A8%E5%86%85%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%9F%BA%E7%A1%80%E4%B8%8A%E4%BF%9D%E7%95%99%E5%B7%A6%E8%A1%A8"><span class="nav-number">7.3.2.</span> <span class="nav-text">左连接：在内连接的基础上保留左表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%B3%E8%BF%9E%E6%8E%A5%EF%BC%9A%E5%9C%A8%E5%86%85%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%9F%BA%E7%A1%80%E4%B8%8A%E4%BF%9D%E7%95%99%E5%8F%B3%E8%A1%A8"><span class="nav-number">7.3.3.</span> <span class="nav-text">右连接：在内连接的基础上保留右表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5%EF%BC%9A%E5%9C%A8%E5%86%85%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%9F%BA%E7%A1%80%E4%B8%8A%E4%BF%9D%E7%95%99%E5%B7%A6%E5%8F%B3%E4%B8%A4%E8%A1%A8%E6%B2%A1%E6%9C%89%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="nav-number">7.3.4.</span> <span class="nav-text">全外连接：在内连接的基础上保留左右两表没有对应关系的记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81select%E5%AE%8C%E6%95%B4%E8%AF%AD%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">8、select完整语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81select%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">9、select执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10%E3%80%81%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">10.</span> <span class="nav-text">10、子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11%E3%80%81%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">11.</span> <span class="nav-text">11、权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E8%B4%A6%E5%8F%B7"><span class="nav-number">11.1.</span> <span class="nav-text">1.创建账号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%B8%90%E5%8F%B7"><span class="nav-number">11.1.1.</span> <span class="nav-text">本地帐号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B4%A6%E5%8F%B7"><span class="nav-number">11.1.2.</span> <span class="nav-text">远程账号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%8E%88%E6%9D%83"><span class="nav-number">11.2.</span> <span class="nav-text">2.授权</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9D%83%E9%99%90"><span class="nav-number">11.2.1.</span> <span class="nav-text">查看权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%BE%E6%9D%83%E9%99%90-select-%E6%9F%A5%E7%9C%8B%E6%9D%83%E9%99%90-update-%E6%9B%B4%E6%96%B0%E6%9D%83%E9%99%90"><span class="nav-number">11.2.2.</span> <span class="nav-text">放权限 (select-&gt;查看权限 update-&gt;更新权限)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9E%E6%94%B6%E6%9D%83%E9%99%90"><span class="nav-number">11.2.3.</span> <span class="nav-text">回收权限</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12%E3%80%81%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">12.</span> <span class="nav-text">12、登录功能设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E9%97%AE%E9%A2%98%E7%9A%84"><span class="nav-number">12.1.</span> <span class="nav-text">有问题的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%AD%A3%E8%BF%87%E7%9A%84"><span class="nav-number">12.2.</span> <span class="nav-text">修正过的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5"><span class="nav-number">12.3.</span> <span class="nav-text">增、删、改、查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13%E3%80%81%E8%A7%86%E5%9B%BE%EF%BC%88%E5%B0%86%E8%BF%9E%E6%8E%A5-%E7%9A%84%E8%99%9A%E6%8B%9F%E8%A1%A8%E5%AD%98%E5%82%A8%E8%B5%B7%E6%9D%A5%EF%BC%89"><span class="nav-number">13.</span> <span class="nav-text">13、视图（将连接 的虚拟表存储起来）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14%E3%80%81%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">14.</span> <span class="nav-text">14、存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E5%8F%82"><span class="nav-number">14.0.1.</span> <span class="nav-text">无参</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E5%8F%82"><span class="nav-number">14.0.2.</span> <span class="nav-text">有参</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15%E3%80%81%E4%BA%8B%E5%8A%A1"><span class="nav-number">15.</span> <span class="nav-text">15、事务</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xiaowu"
+      src="/xwblog.github.io/images/avatar.png">
+  <p class="site-author-name" itemprop="name">xiaowu</p>
+  <div class="site-description" itemprop="description">选择有时候比努力更重要</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/xwblog.github.io/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/xwblog.github.io/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/xwblog.github.io/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/2796189414" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;2796189414" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2796189414@gmail.com" title="E-Mail → mailto:2796189414@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      链接网站
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://fishc.com.cn/" title="https:&#x2F;&#x2F;fishc.com.cn" rel="noopener" target="_blank">鱼C论坛</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;" rel="noopener" target="_blank">菜鸟教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaowu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">442k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:42</span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共114.4k字</span>
+</div>
+<br>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+
+本站总访问量<span id="busuanzi_value_site_pv"></span>次
+ | 
+本站访客数<span id="busuanzi_value_site_uv"></span>人次
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/xwblog.github.io/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/xwblog.github.io/lib/anime.min.js"></script>
+  <script src="/xwblog.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/xwblog.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/xwblog.github.io/js/utils.js"></script>
+
+<script src="/xwblog.github.io/js/motion.js"></script>
+
+
+<script src="/xwblog.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/xwblog.github.io/js/next-boot.js"></script>
+
+
+  <script defer src="/xwblog.github.io/lib/three/three.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/xwblog.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
