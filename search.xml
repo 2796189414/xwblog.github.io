@@ -3,14 +3,20 @@
   <entry>
     <title>自我介绍</title>
     <url>/2023/10/28/hello-world/</url>
-    <content><![CDATA[<center>大家好，我叫 **xiaowu**，来自美丽的*地球*，今年**20**岁  </center>
+    <content><![CDATA[<center>大家好，我叫<b>xiaowu</b> ，来自美丽的<b>地球</b>，今年<b>20</b>岁  </center>
 
-<h4 id="学习搭建自己的blog"><a href="#学习搭建自己的blog" class="headerlink" title="学习搭建自己的blog"></a>学习搭建自己的blog<img src="/2023/10/28/hello-world/18E9E9F8.png" class title="img"></h4><p>1、准备工作</p>
-<p>2、安装Hexo</p>
-<p>3、将Hexo部署到github</p>
-<p>4、安装next主题</p>
-<p>5、next主题优化</p>
-<p>6、部署到服务器</p>
+  <center><img src="/2023/10/28/hello-world/2.png" class></center>
+
+
+<hr>
+
+<h4 id="学习搭建自己的blog"><a href="#学习搭建自己的blog" class="headerlink" title="学习搭建自己的blog"></a>学习搭建自己的blog<img src="/2023/10/28/hello-world/18E9E9F8.png" class></h4><p><strong>首先我是跟着大佬一步步走的（中间踩过很多坑），当然大佬的文章肯定没问题，只不过时间太早了，现在的版本有些和旧版本不一样，不过我都全解决了</strong></p>
+<p><strong>大佬文案：</strong><a href="https://zhuanlan.zhihu.com/p/102592286">从零开始搭建个人博客（超详细）</a></p>
+<p>废话不多说！开始（1~5都是准备工作，大佬都写的挺详细的，我就省略不写哈）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、创建GitHub账号</span><br><span class="line">2、Git的使用</span><br><span class="line">3、绑定GitHub并提交文件</span><br><span class="line">4、购买域名  //暂时不用,后面单独出教学</span><br><span class="line">5、安装node.js和hexo</span><br></pre></td></tr></table></figure>
+
+<p>必须完成以上操作才能进行 安装hexo一系列操作</p>
+<p><a href="https://www.yuque.com/qq2796189414/blog/ud2vubk06xazgrua?singleDoc#">安装Hexo</a>  ||  <a href="https://www.yuque.com/qq2796189414/blog/pvca2iloa5kulq0g?singleDoc#">将Hexo部署到github</a>   ||  <a href="https://www.yuque.com/qq2796189414/blog/zqq44un8zdhkiw6q?singleDoc#">安装next主题</a>  ||  <a href="https://www.yuque.com/qq2796189414/blog/ah44upfwz0oho6v2?singleDoc#">next主题优化</a>  ||  <a href="https://www.yuque.com/qq2796189414/blog/hvuuiav77dxa68cf?singleDoc#">部署到服务器</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -255,8 +261,8 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>后端</tag>
+        <tag>java</tag>
         <tag>javase</tag>
       </tags>
   </entry>
@@ -2733,8 +2739,8 @@
         <category>java框架</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>后端</tag>
+        <tag>java</tag>
         <tag>spring框架</tag>
       </tags>
   </entry>
@@ -5121,8 +5127,8 @@
         <category>java框架</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>后端</tag>
+        <tag>java</tag>
         <tag>spring框架</tag>
       </tags>
   </entry>
