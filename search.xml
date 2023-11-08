@@ -3,8 +3,15 @@
   <entry>
     <title>自我介绍</title>
     <url>/2023/10/28/hello-world/</url>
-    <content><![CDATA[<p>大家好，我叫 <strong>xiaowu</strong>，来自美丽的<em>地球</em>，今年<strong>20</strong>岁  </p>
-<h4 id="学习搭建自己的blog👇"><a href="#学习搭建自己的blog👇" class="headerlink" title="学习搭建自己的blog👇"></a>学习搭建自己的blog👇</h4><h1 id="个人博客搭建"><a href="#个人博客搭建" class="headerlink" title="个人博客搭建"></a><a href="https://www.yuque.com/qq2796189414/wcxyrt/sowgy92vnghgixpn?singleDoc#">个人博客搭建</a></h1>]]></content>
+    <content><![CDATA[<center>大家好，我叫 **xiaowu**，来自美丽的*地球*，今年**20**岁  </center>
+
+<h4 id="学习搭建自己的blog"><a href="#学习搭建自己的blog" class="headerlink" title="学习搭建自己的blog"></a>学习搭建自己的blog<img src="/2023/10/28/hello-world/18E9E9F8.png" class title="img"></h4><p>1、准备工作</p>
+<p>2、安装Hexo</p>
+<p>3、将Hexo部署到github</p>
+<p>4、安装next主题</p>
+<p>5、next主题优化</p>
+<p>6、部署到服务器</p>
+]]></content>
   </entry>
   <entry>
     <title>javaweb</title>
