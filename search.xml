@@ -261,9 +261,9 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>后端</tag>
-        <tag>java</tag>
         <tag>javase</tag>
+        <tag>java</tag>
+        <tag>后端</tag>
       </tags>
   </entry>
   <entry>
@@ -2739,9 +2739,9 @@
         <category>java框架</category>
       </categories>
       <tags>
-        <tag>后端</tag>
         <tag>java</tag>
         <tag>spring框架</tag>
+        <tag>后端</tag>
       </tags>
   </entry>
   <entry>
@@ -3069,9 +3069,9 @@
         <category>后端</category>
       </categories>
       <tags>
-        <tag>javase</tag>
         <tag>mysql</tag>
         <tag>jdbc</tag>
+        <tag>javase</tag>
       </tags>
   </entry>
   <entry>
@@ -5127,9 +5127,9 @@
         <category>java框架</category>
       </categories>
       <tags>
-        <tag>后端</tag>
         <tag>java</tag>
         <tag>spring框架</tag>
+        <tag>后端</tag>
       </tags>
   </entry>
   <entry>

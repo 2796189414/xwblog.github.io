@@ -78,11 +78,11 @@
       <category domain="https://wublog.top/categories/%E5%90%8E%E7%AB%AF/">后端</category>
       
       
-      <category domain="https://wublog.top/tags/%E5%90%8E%E7%AB%AF/">后端</category>
+      <category domain="https://wublog.top/tags/javase/">javase</category>
       
       <category domain="https://wublog.top/tags/java/">java</category>
       
-      <category domain="https://wublog.top/tags/javase/">javase</category>
+      <category domain="https://wublog.top/tags/%E5%90%8E%E7%AB%AF/">后端</category>
       
       
       <comments>https://wublog.top/2023/11/05/javase/#disqus_thread</comments>
@@ -132,11 +132,11 @@
       <category domain="https://wublog.top/categories/java%E6%A1%86%E6%9E%B6/">java框架</category>
       
       
-      <category domain="https://wublog.top/tags/%E5%90%8E%E7%AB%AF/">后端</category>
-      
       <category domain="https://wublog.top/tags/java/">java</category>
       
       <category domain="https://wublog.top/tags/spring%E6%A1%86%E6%9E%B6/">spring框架</category>
+      
+      <category domain="https://wublog.top/tags/%E5%90%8E%E7%AB%AF/">后端</category>
       
       
       <comments>https://wublog.top/2023/11/05/springmvc/#disqus_thread</comments>
@@ -159,11 +159,11 @@
       <category domain="https://wublog.top/categories/%E5%90%8E%E7%AB%AF/">后端</category>
       
       
-      <category domain="https://wublog.top/tags/javase/">javase</category>
-      
       <category domain="https://wublog.top/tags/mysql/">mysql</category>
       
       <category domain="https://wublog.top/tags/jdbc/">jdbc</category>
+      
+      <category domain="https://wublog.top/tags/javase/">javase</category>
       
       
       <comments>https://wublog.top/2023/11/05/jdbc/#disqus_thread</comments>
